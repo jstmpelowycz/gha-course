@@ -1,16 +1,23 @@
 name: Simple workflow
 
-on: workflow_dispatch
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
-    job-1:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Print greeting
-              run: |
-                  echo "Hello, world!"
+  build:
+    runs-on: ubuntu-latest
 
-            - name: Print farewell
-              run: |
-                  echo "Done! Bye!"
-            
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
